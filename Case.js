@@ -10,7 +10,7 @@ class Case {
         this.wallLeft = objet.walls[3];
         this.taille = taille
     }
-    createCase() {
+    createCase() { //Création de mon labyrinthe
         let carre = document.createElement('div');
         carre.style.width = '50px';
         carre.style.height = '50px';
@@ -27,10 +27,10 @@ class Case {
         if (this.wallLeft) {
             carre.style.borderLeft = 'solid 2px' + this.color
         }
-        if (this.posX === 0 && this.posY === 0) {
-            carre.style.backgroundColor = '#F5F5DC'
+        if (this.posX === 0 && this.posY === 0) {  //Ma case de depart en bleu
+            carre.style.backgroundColor = '#00BFFF'
         }
-        if (this.posX === (this.taille - 1) && this.posY === (this.taille - 1)) {
+        if (this.posX === (this.taille - 1) && this.posY === (this.taille - 1)) { //Ma case d'arrivé en rouge
             carre.style.backgroundColor = '#FF0000'
         }
         return carre

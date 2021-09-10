@@ -1,6 +1,4 @@
-
-
-function getValue()
+function getValue() // fonction qui recupère ma valeur taille dans data lorsque j'appuie sur mon input
 {
     var takeId = document.getElementById("taille").value;
     //alert("Nombre de case du tableau selectionné : "+takeId);
@@ -9,12 +7,8 @@ function getValue()
     laby.createLab();
 }
 
-//let takeId = document.getElementById("taille").value;
-
-/*
-function randomMaze(min,max){
-    min = Math.ceil(3);
-    max = Math.floor(25);
-return Math.floor(Math.random()*(max-min+1))+min;
-}
-*/
+document.querySelector('body').addEventListener('keypress', function (e) {
+    if (e.key === 'Enter') {
+        getValue();
+    }
+});

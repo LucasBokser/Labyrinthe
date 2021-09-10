@@ -23,9 +23,13 @@
 
 <body>
 <div class="form__group field">
-    <input type="number" class="form__field" id="taille" name="taille" value="" min="3" max="25" required>
+    <form onsubmit="return false;">
+    <input type="number" class="form__field" id="taille" name="taille" value="" min="3" max="25" required
+           oninvalid="this.setCustomValidity('Entrer un nombre entre 3 et 25')"
+           oninput="this.setCustomValidity('')">
     <label for="taille" class="form__label">Nombre de cases de mon labyrinthe (3-25):</label>
-    <button id="button" type="button" value="" onclick="getValue();">Générer mon Labyrinthe</button>
+        <button id="button" type="button" value="" onclick="getValue()">Générer mon Labyrinthe</button>
+    </form>
 </div>
 <!--
 <label for="taille">Nombre de cases de mon labyrinthe (3-25):</label>
