@@ -8,6 +8,9 @@ class Labyrinthe {
         return this.exemple
     }
     createLab() {
+        if (document.getElementById('board')){
+            document.getElementById('board').remove(); // pour supprimer mon element board quand je change de labyrinthe
+        }
         let board = document.createElement('div');
         board.setAttribute('id', 'board');
         board.style.width = (this.taille * 50) + 'px';
@@ -20,4 +23,5 @@ class Labyrinthe {
         }
         document.querySelector('body').append(board);
     }
+
 }

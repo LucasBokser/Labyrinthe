@@ -6,23 +6,36 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>labyrinthe</title>
+    <link rel="stylesheet" href="index.css" />
     <style>
         * {
             box-sizing: border-box;
+
         }
 
         #board {
             display: flex;
             flex-wrap: wrap;
+
         }
     </style>
 </head>
 
 <body>
+<div class="form__group field">
+    <input type="number" class="form__field" id="taille" name="taille" value="" min="3" max="25" required>
+    <label for="taille" class="form__label">Nombre de cases de mon labyrinthe (3-25):</label>
+    <button id="button" type="button" value="" onclick="getValue();">Générer mon Labyrinthe</button>
+</div>
+<!--
+<label for="taille">Nombre de cases de mon labyrinthe (3-25):</label>
+<input type="number" id="taille" name="taille" value="" min="3" max="25">
+<button type="button" value="" onclick="getValue();">Générer mon Labyrinthe</button>-->
 <script src="Case.js"></script>
 <script src="labyrinthe.js"></script>
 <script src="maze.js"></script>
 <script src="script.js"></script>
+
 </body>
 
 </html>
