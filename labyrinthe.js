@@ -26,8 +26,7 @@ class Labyrinthe {
         document.querySelector('body').append(board);
     }
 
-
-    resolutionDuLaby() {
+    async resolutionDuLaby() {
         //boucle while à faire
 
         let currentPosition = 0;
@@ -47,7 +46,7 @@ class Labyrinthe {
             for (let i = 0; i < showMyN.length; i++) {
                 if (!this.exemple[showMyN[i]].cailloux) {
                     currentPosition = showMyN[i];
-                    this.colorCase(this.exemple[currentPosition]);
+                    await this.colorCase(this.exemple[currentPosition]);
                     this.exemple[currentPosition].cailloux = true;
                     i = showMyN.length;
                 }
@@ -55,11 +54,12 @@ class Labyrinthe {
         }
     }
 
-    colorCase(myCase) {
+    async colorCase(myCase) {
         myCase = document.getElementById(myCase.posX + "-" + myCase.posY);
         //myCase.style.backgroundColor = "#00FFFF"
         myCase.style.backgroundImage = "url('https://i.pinimg.com/originals/8c/c6/6f/8cc66f457cccbc799681d1f189bae077.jpg')"
         myCase.style.backgroundSize = "cover";
+        await delay(300);
     }
 
     GetMyN(position, taille) {
@@ -79,5 +79,14 @@ class Labyrinthe {
         }
         return labNeighbour;
     }
+
+    delay(delayInms) {
+        return new Promise(resolve => {
+            setTimeout(() => {
+                resolve(2);
+            }, delayInms);
+        });
+    }
+
 }
 

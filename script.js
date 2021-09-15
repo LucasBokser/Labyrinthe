@@ -5,14 +5,24 @@ function getValue() // fonction qui recupère ma valeur taille dans data lorsque
     laby.createLab();
 
 }
-function start(){
+
+function start() {
     var takeId = document.getElementById("taille").value;
     let laby = new Labyrinthe(data, takeId, 0);
     laby.resolutionDuLaby();
 }
+
 document.querySelector('body').addEventListener('keypress', function (e) {
     if (e.key === 'Enter') {
         getValue();
     }
 });
 
+
+async function delay(delayInms) {
+    return new Promise(resolve => {
+        setTimeout(() => {
+            resolve(2);
+        }, delayInms);
+    });
+}
