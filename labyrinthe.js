@@ -87,6 +87,39 @@ class Labyrinthe {
             }, delayInms);
         });
     }
+    /*
+    // DFS version
+    async resolutionDuLabyDFS() {
+        //boucle while à faire
 
+        let currentPosition = 0;
+        this.exemple[currentPosition].cailloux = true;
+        let intersection = [];
+        let stack = [];
+        stack.push(currentPosition);
+        while (stack.length != this.exemple.length - 1) {
+            currentPosition=stack.pop();
+            let showMyN = this.GetMyN(currentPosition, parseInt(this.taille));
+            if (showMyN.length === 0) {
+                console.log("it's a trap")
+                currentPosition = intersection.pop();
+            }
+            if (showMyN.length === 2 || showMyN.length === 3) {
+                console.log("oss 117 style")
+                intersection.push(currentPosition);
+            }
+            for (let i = 0; i < showMyN.length; i++) {
+                if (!this.exemple[showMyN[i]].cailloux) {
+                    currentPosition = showMyN[i];
+                    await this.colorCase(this.exemple[currentPosition]);
+                    this.exemple[currentPosition].cailloux = true;
+                    i = showMyN.length;
+                }
+            }
+        }
+    }
+*/
 }
+
+
 
