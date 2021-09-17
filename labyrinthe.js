@@ -1,5 +1,4 @@
 class Labyrinthe {
-    //tab = [];
     constructor(data, taille, exemple) {
         this.exemple = data[taille.toString()]['ex-' + exemple.toString()]; // mon fichier laby
         this.taille = taille;
@@ -21,14 +20,11 @@ class Labyrinthe {
         for (let elem of this.exemple) {
             let carre = new Case(elem, this.taille);
             board.append(carre.createCase());
-            // console.log(carre)
         }
         document.querySelector('body').append(board);
     }
-
+// Mon algo maison
     async resolutionDuLaby() {
-        //boucle while à faire
-
         let currentPosition = 0;
         this.exemple[currentPosition].cailloux = true;
         let intersection = [];
@@ -46,17 +42,78 @@ class Labyrinthe {
             for (let i = 0; i < showMyN.length; i++) {
                 if (!this.exemple[showMyN[i]].cailloux) {
                     currentPosition = showMyN[i];
-                    await this.colorCase(this.exemple[currentPosition]);
-                    this.exemple[currentPosition].cailloux = true;
-                    i = showMyN.length;
+                    await this.colorCase(this.exemple[currentPosition]); // colorie ma case cf fonction colorCase
+                    this.exemple[currentPosition].cailloux = true; // visité oui
+                    i = showMyN.length; // empecher qu'il continue même à la fin du laby
                 }
             }
         }
     }
 
+    //Methode DFS
+    async resolutionDuLabyDFS() {
+        let currentPosition = 0; // j'initialise ma pos
+        this.exemple[currentPosition].cailloux = true;
+        let intersection = [];
+        while (currentPosition != this.exemple.length - 1) {
+            let showMyN = this.GetMyN(currentPosition, parseInt(this.taille));
+
+            if (showMyN.length === 0) {
+                console.log("it's a trap")
+                currentPosition = intersection.pop();
+            }
+            if (showMyN.length === 2 || showMyN.length === 3) {
+                console.log("oss 117 style")
+                intersection.push(currentPosition);
+            }
+            for (let i = 0; i < showMyN.length; i++) {
+                if (!this.exemple[showMyN[i]].cailloux) {
+                    currentPosition = showMyN[i];
+                    await this.colorCase(this.exemple[currentPosition]); // colorie ma case cf fonction colorCase
+                    this.exemple[currentPosition].cailloux = true; // visité oui
+                    i = showMyN.length; // empecher qu'il continue même à la fin du laby
+                }
+            }
+        }
+    }
+
+    //Methode BFS
+    async resolutionDuLabyBFS() {
+        let currentPosition = 0;
+        this.exemple[currentPosition].cailloux = true;
+        let intersection = [];
+        while (currentPosition != this.exemple.length - 1) {
+            let showMyN = this.GetMyN(currentPosition, parseInt(this.taille));
+
+            if (showMyN.length === 0) {
+                console.log("it's a trap")
+                currentPosition = intersection.pop();
+            }
+            if (showMyN.length === 2 || showMyN.length === 3) {
+                console.log("oss 117 style")
+                intersection.push(currentPosition);
+            }
+            for (let i = 0; i < showMyN.length; i++) {
+                if (!this.exemple[showMyN[i]].cailloux) {
+                    currentPosition = showMyN[i];
+                    await this.colorCase(this.exemple[currentPosition]); // colorie ma case cf fonction colorCase
+                    this.exemple[currentPosition].cailloux = true; // visité oui
+                    i = showMyN.length; // empecher qu'il continue même à la fin du laby
+                }
+            }
+        }
+    }
+
+
+
+
+
+
+
+
+
     async colorCase(myCase) {
         myCase = document.getElementById(myCase.posX + "-" + myCase.posY);
-        //myCase.style.backgroundColor = "#00FFFF"
         myCase.style.backgroundImage = "url('https://i.pinimg.com/originals/8c/c6/6f/8cc66f457cccbc799681d1f189bae077.jpg')"
         myCase.style.backgroundSize = "cover";
         await delay(300);
@@ -87,6 +144,7 @@ class Labyrinthe {
             }, delayInms);
         });
     }
+
     /*
     // DFS version
     async resolutionDuLabyDFS() {

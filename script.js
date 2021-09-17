@@ -11,6 +11,16 @@ function start() {
     let laby = new Labyrinthe(data, takeId, 0);
     laby.resolutionDuLaby();
 }
+function startDFS() {
+    var takeId = document.getElementById("taille").value;
+    let laby = new Labyrinthe(data, takeId, 0);
+    laby.resolutionDuLabyDFS();
+}
+function startBFS() {
+    var takeId = document.getElementById("taille").value;
+    let laby = new Labyrinthe(data, takeId, 0);
+    laby.resolutionDuLabyBFS();
+}
 
 document.querySelector('body').addEventListener('keypress', function (e) {
     if (e.key === 'Enter') {
