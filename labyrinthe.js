@@ -23,6 +23,7 @@ class Labyrinthe {
         }
         document.querySelector('body').append(board);
     }
+
 // Mon algo maison
     async resolutionDuLaby() {
         let currentPosition = 0;
@@ -52,64 +53,68 @@ class Labyrinthe {
 
     //Methode DFS
     async resolutionDuLabyDFS() {
-        let currentPosition = 0; // j'initialise ma pos
+        let currentPosition = 0;
+        console.log(this.exemple.length - 1);
+        let stack = [];
+        stack.push(currentPosition)
+        console.log(stack)
         this.exemple[currentPosition].cailloux = true;
-        let intersection = [];
-        while (currentPosition != this.exemple.length - 1) {
-            let showMyN = this.GetMyN(currentPosition, parseInt(this.taille));
+       // let labNeighbour;
 
-            if (showMyN.length === 0) {
-                console.log("it's a trap")
-                currentPosition = intersection.pop();
+        while (stack.length != 0) { // tant que la taille de stack est différente de 0
+
+            currentPosition = stack.pop(); // recupere le dernier element
+            console.log(currentPosition)
+            this.exemple[currentPosition].cailloux = true;// je pose mon cailloux si visité
+            console.log(currentPosition)
+
+            if (currentPosition === this.exemple.length - 1) {// suis je arrivé à la fin ?
+                console.log("tu as gagné")
+                return stack;
             }
-            if (showMyN.length === 2 || showMyN.length === 3) {
-                console.log("oss 117 style")
-                intersection.push(currentPosition);
-            }
-            for (let i = 0; i < showMyN.length; i++) {
-                if (!this.exemple[showMyN[i]].cailloux) {
-                    currentPosition = showMyN[i];
-                    await this.colorCase(this.exemple[currentPosition]); // colorie ma case cf fonction colorCase
-                    this.exemple[currentPosition].cailloux = true; // visité oui
-                    i = showMyN.length; // empecher qu'il continue même à la fin du laby
+            let labNeighbour = this.GetMyN(currentPosition, parseInt(this.taille)); // je fais appel à ma fonction et verifie si il y a des voisins pas encore visités
+            for (let voisin of labNeighbour) {
+                if (labNeighbour.cailloux === undefined) {// si pas visité
+                    stack.push(voisin)// push dans le voisin
+                    console.log(stack)
                 }
             }
+            console.log(currentPosition);
+            await this.colorCase(this.exemple[currentPosition]);// color ma case d'avancement
         }
     }
 
     //Methode BFS
     async resolutionDuLabyBFS() {
         let currentPosition = 0;
-        this.exemple[currentPosition].cailloux = true;
-        let intersection = [];
-        while (currentPosition != this.exemple.length - 1) {
-            let showMyN = this.GetMyN(currentPosition, parseInt(this.taille));
+        console.log(this.exemple.length - 1);
+        let queue = [];
+        queue.push(currentPosition)
+        console.log(queue)
+        let labNeighbour;
 
-            if (showMyN.length === 0) {
-                console.log("it's a trap")
-                currentPosition = intersection.pop();
+        while (queue.length != 0) { // tant que la taille de stack est différente de 0
+
+            currentPosition = queue.shift(); // Je recupere le premier element
+            console.log(currentPosition)
+            this.exemple[currentPosition].cailloux = true; // je pose mon cailloux si visité
+            console.log(currentPosition)
+
+            if (currentPosition === this.exemple.length - 1) { // suis je arrivé à la fin ?
+                console.log("tu as gagné")
+                return queue; // retourne le chemin
             }
-            if (showMyN.length === 2 || showMyN.length === 3) {
-                console.log("oss 117 style")
-                intersection.push(currentPosition);
-            }
-            for (let i = 0; i < showMyN.length; i++) {
-                if (!this.exemple[showMyN[i]].cailloux) {
-                    currentPosition = showMyN[i];
-                    await this.colorCase(this.exemple[currentPosition]); // colorie ma case cf fonction colorCase
-                    this.exemple[currentPosition].cailloux = true; // visité oui
-                    i = showMyN.length; // empecher qu'il continue même à la fin du laby
+            labNeighbour = this.GetMyN(currentPosition, parseInt(this.taille)); // je fais appel à ma fonction et verifie si il y a des voisins pas encore visités
+            for (let voisin of labNeighbour) {
+                if (labNeighbour.cailloux === undefined) { // si pas visité
+                    queue.push(voisin) // push dans le voisin
+                    console.log(queue)
                 }
             }
+            console.log(currentPosition);
+            await this.colorCase(this.exemple[currentPosition]); // color ma case d'avancement
         }
     }
-
-
-
-
-
-
-
 
 
     async colorCase(myCase) {
@@ -123,6 +128,7 @@ class Labyrinthe {
         let labNeighbour = [];
 
         if (!this.exemple[position].walls[0] && this.exemple[position - taille].cailloux !== true) {
+           // console.log(this.exemple[position].walls[0])
             labNeighbour.push(position - taille)
         }
         if (!this.exemple[position].walls[1] && this.exemple[position + 1].cailloux !== true) {
@@ -144,39 +150,6 @@ class Labyrinthe {
             }, delayInms);
         });
     }
-
-    /*
-    // DFS version
-    async resolutionDuLabyDFS() {
-        //boucle while à faire
-
-        let currentPosition = 0;
-        this.exemple[currentPosition].cailloux = true;
-        let intersection = [];
-        let stack = [];
-        stack.push(currentPosition);
-        while (stack.length != this.exemple.length - 1) {
-            currentPosition=stack.pop();
-            let showMyN = this.GetMyN(currentPosition, parseInt(this.taille));
-            if (showMyN.length === 0) {
-                console.log("it's a trap")
-                currentPosition = intersection.pop();
-            }
-            if (showMyN.length === 2 || showMyN.length === 3) {
-                console.log("oss 117 style")
-                intersection.push(currentPosition);
-            }
-            for (let i = 0; i < showMyN.length; i++) {
-                if (!this.exemple[showMyN[i]].cailloux) {
-                    currentPosition = showMyN[i];
-                    await this.colorCase(this.exemple[currentPosition]);
-                    this.exemple[currentPosition].cailloux = true;
-                    i = showMyN.length;
-                }
-            }
-        }
-    }
-*/
 }
 
 
